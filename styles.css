@@ -1,5 +1,5 @@
 @font-face {
-  src: URL(fonts/digital-7.ttf);
+  src: URL('/fonts/digital-7.ttf');
   font-family: digital-font;
 }
 
