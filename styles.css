@@ -1,14 +1,29 @@
+@font-face {
+  src: URL(/fonts/digital-7.ttf);
+  font-family: digital-font;
+}
+
 body {
   background-color: black;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 .btc-display {
-  background-color: rgb(116, 0, 91);
+  font-family: digital-font;
   min-height: 100vh;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+#btc-price {
+  font-size: 12em;
+}
+
+#btc-emoji {
+  font-size: 2em;
 }

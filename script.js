@@ -5,7 +5,7 @@ const xhr = new XMLHttpRequest();
 /* Variable cambiar color display de bitcoin */
 let lastPrice = 0;
 
-function onRequestHandler(lastPrice) {
+function onRequestHandler() {
   if (this.readyState === 4 && this.status === 200) {
     // 0 = UNSET, no se ha llamado al metodo open.
     // 1 = OPENED, se ha llamado al metodo open.
@@ -17,22 +17,23 @@ function onRequestHandler(lastPrice) {
 
     const BTCPrice = document.querySelector("#btc-price");
     const BTCName = document.querySelector("#btc-name");
+    const BTCEmoji = document.querySelector("#btc-emoji");
 
     let rounded = parseFloat(btc.data.priceUsd).toFixed(2);
     BTCPrice.innerText = `$${rounded}`;
-    BTCName.innerText = `${btc.data.name}`;
-
+    // BTCName.innerText = `${btc.data.name}`;
     /* Cambiar colores display */
+
     if (lastPrice < rounded) {
       BTCPrice.style.color = "green";
+      BTCEmoji.innerText = "To the moon! 🚀";
     } else if (lastPrice > rounded) {
       BTCPrice.style.color = "red";
+      BTCEmoji.innerText = "Red flag! 🚩";
     }
+    lastPrice = rounded;
 
     console.log("rounded: ", rounded);
-    return new Promise((resolve, reject) => {
-      resolve(rounded);
-    });
   }
 }
 
@@ -41,12 +42,7 @@ xhr.open("GET", `${API_URL}/assets/bitcoin`);
 xhr.send();
 
 setInterval(() => {
-  console.log("first lastPrice: ", lastPrice);
+  onRequestHandler();
   xhr.open("GET", `${API_URL}/assets/bitcoin`);
   xhr.send();
-  lastPrice = await onRequestHandler(lastPrice);
-  console.log("second lastPrice: ", lastPrice);
-}, 10000);
-
-
-fetchingData();
+}, 5000);
