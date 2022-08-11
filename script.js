@@ -30,7 +30,9 @@ function onRequestHandler(lastPrice) {
     }
 
     console.log("rounded: ", rounded);
-    return rounded;
+    return new Promise((resolve, reject) => {
+      resolve(rounded);
+    });
   }
 }
 
@@ -42,6 +44,9 @@ setInterval(() => {
   console.log("first lastPrice: ", lastPrice);
   xhr.open("GET", `${API_URL}/assets/bitcoin`);
   xhr.send();
-  lastPrice = onRequestHandler(lastPrice);
+  lastPrice = await onRequestHandler(lastPrice);
   console.log("second lastPrice: ", lastPrice);
 }, 10000);
+
+
+fetchingData();
